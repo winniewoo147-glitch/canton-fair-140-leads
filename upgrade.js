@@ -80,6 +80,6 @@
   installEditButtons();
 
   const inboundScript = document.createElement('script');
-  inboundScript.src = 'inbound.js';
+  inboundScript.src = 'inbound.js?v=20261013-ve';
   document.body.append(inboundScript);
 })();

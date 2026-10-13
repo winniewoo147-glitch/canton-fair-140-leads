@@ -78,4 +78,8 @@
 
   new MutationObserver(installEditButtons).observe(document.querySelector('#leads'), { childList: true });
   installEditButtons();
+
+  const inboundScript = document.createElement('script');
+  inboundScript.src = 'inbound.js';
+  document.body.append(inboundScript);
 })();

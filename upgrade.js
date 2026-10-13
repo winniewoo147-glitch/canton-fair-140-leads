@@ -30,15 +30,17 @@
 
   function installEditButtons() {
     document.querySelectorAll('.lead').forEach((card) => {
-      if (card.querySelector('.edit-lead')) return;
       const remark = card.querySelector('.remark')?.textContent;
       const lead = window.leads.find((item) => item.remark === remark);
       if (!lead) return;
-      const registered = document.createElement('div');
-      registered.className = 'registered-date';
-      registered.style.cssText = 'margin-top:6px;font-size:11px;color:#64746c';
-      registered.textContent = `登记日期：${lead.date || '早期记录'}`;
-      card.querySelector('.meta')?.after(registered);
+      if (!card.querySelector('.registered-date')) {
+        const registered = document.createElement('div');
+        registered.className = 'registered-date';
+        registered.style.cssText = 'margin-top:6px;font-size:11px;color:#64746c';
+        registered.textContent = `登记日期：${lead.date || '早期记录'}`;
+        card.querySelector('.meta')?.after(registered);
+      }
+      if (card.querySelector('.edit-lead')) return;
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'edit-lead';

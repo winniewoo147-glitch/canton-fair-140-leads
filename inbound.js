@@ -21,7 +21,7 @@
     ['213', 'Algeria'], ['212', 'Morocco'], ['211', 'South Sudan'], ['218', 'Libya'], ['216', 'Tunisia'], ['220', 'Gambia'],
     ['98', 'Iran'], ['97', 'UAE'], ['94', 'Sri Lanka'], ['92', 'Pakistan'], ['91', 'India'], ['86', 'China'],
     ['82', 'South Korea'], ['81', 'Japan'], ['66', 'Thailand'], ['65', 'Singapore'], ['64', 'New Zealand'], ['63', 'Philippines'],
-    ['62', 'Indonesia'], ['61', 'Australia'], ['60', 'Malaysia'], ['55', 'Brazil'], ['54', 'Argentina'], ['52', 'Mexico'],
+    ['62', 'Indonesia'], ['61', 'Australia'], ['60', 'Malaysia'], ['58', 'Venezuela'], ['55', 'Brazil'], ['54', 'Argentina'], ['52', 'Mexico'],
     ['49', 'Germany'], ['48', 'Poland'], ['47', 'Norway'], ['46', 'Sweden'], ['45', 'Denmark'], ['44', 'United Kingdom'],
     ['43', 'Austria'], ['41', 'Switzerland'], ['40', 'Romania'], ['39', 'Italy'], ['36', 'Hungary'], ['34', 'Spain'],
     ['33', 'France'], ['32', 'Belgium'], ['31', 'Netherlands'], ['30', 'Greece'], ['27', 'South Africa'], ['20', 'Egypt'],
@@ -54,9 +54,10 @@
     const numberMatch = raw.match(/(?:\+|00)?\d[\d\s().-]{6,}\d/);
     const phone = numberMatch ? numberMatch[0].replace(/\s+/g, ' ').trim() : '';
     const named = raw.match(/(?:name|姓名|联系人|contact)\s*[:：-]?\s*([^\n]{2,42})/i)?.[1]?.trim();
+    const tagged = raw.match(/\b([A-Za-z]{2})\s*[-–]\s*([A-Za-z][A-Za-z .'-]{1,38})/);
     const fallback = lines.find((line) => /^[A-Za-z][A-Za-z .'-]{1,38}$/.test(line) && !/whatsapp|online|typing|today|yesterday/i.test(line));
-    const name = (named || fallback || '').replace(/^(name|姓名|联系人|contact)\s*[:：-]?\s*/i, '').trim();
-    return { name, phone, country: countryFromPhone(phone) };
+    const name = (named || tagged?.[2] || fallback || '').replace(/^(name|姓名|联系人|contact)\s*[:：-]?\s*/i, '').trim();
+    return { name, phone, country: (tagged?.[1] || countryFromPhone(phone)).toUpperCase() };
   }
 
   async function paste() {

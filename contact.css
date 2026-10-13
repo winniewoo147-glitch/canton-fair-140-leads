@@ -1,0 +1,4 @@
+.card-actions { display: flex; gap: 8px; margin-top: 12px; }
+.contact-btn, .wa-btn { border: 0; border-radius: 9px; padding: 8px 10px; font: 800 12px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; cursor: pointer; text-decoration: none; }
+.contact-btn { background: #f3be2c; color: #173f37; }
+.wa-btn { background: #173f37; color: #fff; }
